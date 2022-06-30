@@ -7,15 +7,23 @@ set number
 set vb t_vb=
 set tabstop=4
 
-nnoremap <leader>n :NERDTreeFocus<CR>
-"nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-nmap <space> :
-nmap vs vsplit
 
+nmap <space> :
+nmap r <C-w>
+
+"Plugs
 call plug#begin('~/.vim/plugged')
 
+"NERDTree Settings
 Plug 'scrooloose/nerdtree'
 
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+
 call plug#end()
+
+
+"Comment Color Setting
+hi comment ctermfg=6
