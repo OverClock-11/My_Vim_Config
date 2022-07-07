@@ -1,5 +1,8 @@
 "============================== My Settings =========================
 
+color OverClock
+
+"syntax on
 set nocompatible
 filetype on
 filetype indent on
@@ -29,20 +32,17 @@ set foldmethod=indent
 set foldlevel=99
 set autochdir
 
-"hi comment ctermfg=6 cterm=italic
-
 " Let your cursor set in the last time edit position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif 
 
+
 "set list  "Show space in txt
 "set mouse=a  "make your mouse available
-"set laststatus=2
 
 "============================== My Maps =============================
 nmap <space> :
 nmap J 5j
 nmap K 5k
-nmap bv <C-v>
 nmap ff /
 
 map s <nop>
@@ -50,35 +50,25 @@ map s <nop>
 map sr :set splitright<CR>
 map sv :set nosplitright<CR>
 
-map <C-k> :res +3<CR>
-map <C-j> :res -3<CR>
-map <C-h> :vertical resize-3<CR>
-map <C-l> :vertical resize+3<CR>
-map S :source $MYVIMRC<CR>
+map <C-k> :res +5<CR>
+map <C-j> :res -5<CR>
+map <C-h> :vertical resize-5<CR>
+map <C-l> :vertical resize+5<CR>
 
-imap ff <ESC>/
+imap ff <Esc>/
+
 
 "============================== My Plugs ============================
 call plug#begin('~/.vim/plugged')
 
 " NERDTree Settings
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 highlight NERDTreeFile ctermfg=14
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+
 
 
 " Airline - Line theme
@@ -87,7 +77,6 @@ Plug 'vim-airline/vim-airline-themes'
 "let g:airline_theme='dark_minimal'
 let g:airline_theme='supernova'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -99,22 +88,56 @@ let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.dirty='⚡'
 
+" Auto complete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = [
+  \'coc-json', 
+  \'coc-git', 
+  \'coc-css',
+  \'coc-jedi',
+  \]
 
-" Error checking
-"Plug 'w0rp/ale'
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ ]
+" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
+" unicode characters in the file autoload/float.vim
+set encoding=utf-8
 
-" Auto Complete
-Plug 'Valloric/YouCompleteMe'
+" TextEdit might fail if hidden is not set.
+set hidden
 
-" Color Scheme
-Plug 'connorholyday/vim-snazzy'
-let g:SnazzyTransparent = 1
-"let g:lightline = {'colorscheme' : 'default'}
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+
 
 call plug#end()
 
-"color scheme
-"color snazzy
 
-color OverClock
 
