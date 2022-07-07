@@ -1,5 +1,5 @@
 "============================== My Settings =========================
-syntax on
+
 set nocompatible
 filetype on
 filetype indent on
@@ -29,12 +29,10 @@ set foldmethod=indent
 set foldlevel=99
 set autochdir
 
+"hi comment ctermfg=6 cterm=italic
+
 " Let your cursor set in the last time edit position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif 
-
-" Comment Color Setting
-hi comment ctermfg=6
-
 
 "set list  "Show space in txt
 "set mouse=a  "make your mouse available
@@ -44,30 +42,43 @@ hi comment ctermfg=6
 nmap <space> :
 nmap J 5j
 nmap K 5k
+nmap bv <C-v>
+nmap ff /
+
 map s <nop>
 
 map sr :set splitright<CR>
 map sv :set nosplitright<CR>
 
-map <C-k> :res +5<CR>
-map <C-j> :res -5<CR>
-map <C-h> :vertical resize-5<CR>
-map <C-l> :vertical resize+5<CR>
+map <C-k> :res +3<CR>
+map <C-j> :res -3<CR>
+map <C-h> :vertical resize-3<CR>
+map <C-l> :vertical resize+3<CR>
+map S :source $MYVIMRC<CR>
 
-
-
+imap ff <ESC>/
 
 "============================== My Plugs ============================
 call plug#begin('~/.vim/plugged')
 
 " NERDTree Settings
 Plug 'scrooloose/nerdtree'
-
+Plug 'Xuyuanp/nerdtree-git-plugin'
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 highlight NERDTreeFile ctermfg=14
-
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 
 
 " Airline - Line theme
@@ -75,13 +86,35 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "let g:airline_theme='dark_minimal'
 let g:airline_theme='supernova'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols = {}
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='⚡'
+
 
 " Error checking
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 
 " Auto Complete
 Plug 'Valloric/YouCompleteMe'
 
+" Color Scheme
+Plug 'connorholyday/vim-snazzy'
+let g:SnazzyTransparent = 1
+"let g:lightline = {'colorscheme' : 'default'}
 
 call plug#end()
+
+"color scheme
+"color snazzy
+
+color OverClock
 
